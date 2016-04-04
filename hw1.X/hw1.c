@@ -60,7 +60,7 @@ int main() {
     DDPCONbits.JTAGEN = 0;
     
     // do your TRIS and LAT commands here
-    TRISBbits.TRISB15 = 0; //choose rb15 to be io pin
+    TRISBbits.TRISB8 = 0; //choose rb8 to be io pin
     
     __builtin_enable_interrupts();
     
@@ -71,7 +71,7 @@ int main() {
         while(_CP0_GET_COUNT()<24000){
             ;
         }
-        LATBINV = 0x8000; //invert rb15
+        LATBINV = 0x100; //invert rb8
         _CP0_SET_COUNT(0);
     }
     
