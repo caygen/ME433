@@ -9,21 +9,21 @@
 #include<sys/attribs.h>  // __ISR macro
 
 // DEVCFG0
-#pragma config DEBUG = x // no debugging
-#pragma config JTAGEN = x // no jtag
-#pragma config ICESEL = x // use PGED1 and PGEC1
-#pragma config PWP = x // no write protect
-#pragma config BWP = x // no boot write protect
-#pragma config CP = x // no code protect
+#pragma config DEBUG = OFF // no debugging
+#pragma config JTAGEN = OFF // no jtag
+#pragma config ICESEL = ICS_PGX1 // use PGED1 and PGEC1
+#pragma config PWP = OFF // no write protect
+#pragma config BWP = OFF // no boot write protect
+#pragma config CP = OFF // no code protect
 
 // DEVCFG1
-#pragma config FNOSC = x // use primary oscillator with pll
-#pragma config FSOSCEN = x // turn off secondary oscillator
-#pragma config IESO = x // no switching clocks
-#pragma config POSCMOD = x // high speed crystal mode
-#pragma config OSCIOFNC = x // free up secondary osc pins
-#pragma config FPBDIV = x // divide CPU freq by 1 for peripheral bus clock
-#pragma config FCKSM = x // do not enable clock switch
+#pragma config FNOSC = FRCPLL // use primary oscillator with pll
+#pragma config FSOSCEN = OFF // turn off secondary oscillator
+#pragma config IESO = OFF // no switching clocks
+#pragma config POSCMOD = HS // high speed crystal mode
+#pragma config OSCIOFNC = OFF // free up secondary osc pins
+#pragma config FPBDIV = DIV_1 // divide CPU freq by 1 for peripheral bus clock
+#pragma config FCKSM = CSDCMD // do not enable clock switch
 #pragma config WDTPS = x // slowest wdt
 #pragma config WINDIS = x // no wdt window
 #pragma config FWDTEN = x // wdt off by default
