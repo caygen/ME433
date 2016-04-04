@@ -72,7 +72,7 @@ int main() {
         while(_CP0_GET_COUNT()<24000){;} //wait 1/1000sec
         LATBINV = 0x100;                 //invert rb8
         _CP0_SET_COUNT(0);               //reset core timer
-        while(LATB7==1){        // wait if button pressed
+        while(PORTBbits.RB7 == 1){        // wait if button pressed
         LATBCLR = 0x100;        // clear the led while the button is pressed
         }                       
     }
