@@ -60,7 +60,8 @@ int main() {
     DDPCONbits.JTAGEN = 0;
     
     // do your TRIS and LAT commands here
-    TRISBbits.TRISB8 = 0; //choose rb8 to be io pin
+    TRISBbits.TRISB8 = 0; //choose rb8 to be output pin
+    TRISBbits.TRISB7 = 1; //choose rb7 to be input pin
     
     __builtin_enable_interrupts();
     
@@ -68,11 +69,12 @@ int main() {
 	    // use _CP0_SET_COUNT(0) and _CP0_GET_COUNT() to test the PIC timing
 		// remember the core timer runs at half the CPU speed
         _CP0_SET_COUNT(0);
-        while(_CP0_GET_COUNT()<24000){
-            ;
-        }
-        LATBINV = 0x100; //invert rb8
-        _CP0_SET_COUNT(0);
+        while(_CP0_GET_COUNT()<24000){;} //wait 1/1000sec
+        LATBINV = 0x100;                 //invert rb8
+        _CP0_SET_COUNT(0);               //reset core timer
+        while(LATB7==1){        // wait if button pressed
+        LATBCLR = 0x100;        // clear the led while the button is pressed
+        }                       
     }
     
     
