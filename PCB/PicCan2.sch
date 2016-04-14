@@ -10238,11 +10238,11 @@ For boards designed to be plugged directly into a USB slot. If possible, ensure 
 <text x="-6.35" y="-3.81" size="1.016" layer="48" rot="R90">Card edge</text>
 </package>
 <package name="SLDSWCH">
-<pad name="2.OUT" x="0" y="0" drill="0.8"/>
-<pad name="1.IN" x="-2" y="0" drill="0.8"/>
-<pad name="3.IN" x="2" y="0" drill="0.8"/>
-<pad name="4.GND" x="4" y="0" drill="1"/>
-<pad name="0.GND" x="-4" y="0" drill="1"/>
+<pad name="2.OUT" x="0" y="0" drill="0.9"/>
+<pad name="1.IN" x="-2" y="0" drill="0.9"/>
+<pad name="3.IN" x="2" y="0" drill="0.9"/>
+<pad name="4.GND" x="4" y="0" drill="1.1"/>
+<pad name="0.GND" x="-4" y="0" drill="1.1"/>
 <wire x1="-5" y1="1" x2="5" y2="1" width="0.127" layer="21"/>
 <wire x1="5" y1="1" x2="5" y2="-1" width="0.127" layer="21"/>
 <wire x1="5" y1="-1" x2="-5" y2="-1" width="0.127" layer="21"/>
