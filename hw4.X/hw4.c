@@ -43,6 +43,19 @@
 #include<xc.h>           // processor SFR definitions
 #include<sys/attribs.h>  // __ISR macro
 
+void initSPI1(){
+    RPB13Rbits.RPB13R = 0b0011;
+    TRISBbits.TRISB15 = 0;
+};
+void initI2C();
+void initExpander();
+char SPI1_IO(char write);
+void setVoltage(char channel, char voltage);
+void setExpander(char pin, char level);
+char getExpander();
+
+
+
 int main() {
 
     __builtin_disable_interrupts();
