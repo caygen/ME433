@@ -42,18 +42,73 @@
 
 #include<xc.h>           // processor SFR definitions
 #include<sys/attribs.h>  // __ISR macro
+#include<math.h>
+#define CSdac LATBbits.LATB15// chip select pin
+//#define CSother LATBbits.LATB#// chip select pin for future spi chip
+
+static volatile float sinWave[200],triWave[200];
 
 void initSPI1(){
-    RPB13Rbits.RPB13R = 0b0011;
-    TRISBbits.TRISB15 = 0;
-};
-void initI2C();
-void initExpander();
-char SPI1_IO(char write);
-void setVoltage(char channel, char voltage);
+    RPB13Rbits.RPB13R = 0b0011;     //SDO1  = b13
+    //RPB15Rbits.RPB15R = 0b0011;     //SS1   = b15
+    TRISBbits.TRISB15 = 0;          //CSdac = b15 = SS1
+    CSdac = 1;
+    //CSother = 1;
+    //setup spi1
+    SPI1CON = 0;              // turn off the spi module and reset it
+    SPI1BUF;                  // clear the rx buffer by reading from it
+    SPI1BRG = 0x2;            // baud rate to 10 MHz [SPI4BRG = (48000000/(2*desired))-1] = 1.4 so pick the next int = 2
+    SPI1STATbits.SPIROV = 0;  // clear the overflow bit
+    SPI1CONbits.CKE = 1;      // data changes when clock goes from hi to lo (since CKP is 0)
+    SPI1CONbits.MSTEN = 1;    // master operation
+    SPI1CONbits.ON = 1;       // turn on spi 1
+}
+
+char SPI1_IO(unsigned char o){
+          SPI1BUF = o;
+      while(!SPI1STATbits.SPIRBF) { // wait to receive the byte
+    ;
+  }
+  return SPI1BUF;
+}
+
+void setVoltage(char channel, char voltage){
+    CSdac = 0;
+    unsigned char message = 0x70;
+    if (channel == 'B'){
+        message |= 0x80;
+    }
+//    else if(channel != 'A'){  message |= 0x70;  }
+    if (voltage >= 3.3){voltage = 3.3;}
+    if (voltage <= 0){voltage = 0;}
+    char temp = voltage / 3.3 * 255.0;
+    temp << 4;
+    message |= temp;
+    SPI1_IO(message);
+    CSdac = 1;
+}
+
+//this is modified verion of a ME333 hw from last quarter
+void MakeWave(){  
+    int i;
+    for(i=0; i<200; i++){
+        sinWave[i]=1.65*(1+sin(2*M_PI*10*i/1000));
+        triWave[i]=i*3.3/200;
+    }
+}
+
+void initI2C(){
+    ANSELBbits.ANSB2 = 0;
+    ANSELBbits.ANSB3 = 0;
+    I2C2BRG = 233;              // =[1/(2*Fsck)-PGD]*Pblck - 2
+    I2C2CONbits.ON = 1;        // turn on the I2C1 module
+}
+
+void initExpander(){
+    
+}
 void setExpander(char pin, char level);
 char getExpander();
-
 
 
 int main() {
@@ -74,10 +129,12 @@ int main() {
     
     // do your TRIS and LAT commands here
     TRISBbits.TRISB8 = 0; //choose rb8 to be output pin
-    TRISBbits.TRISB7 = 1; //choose rb7 to be input pin
-    
+    TRISBbits.TRISB7 = 1; //choose rb7 to be input pin 
     __builtin_enable_interrupts();
     
+    MakeWave();
+    initSPI1();
+    int i; char voltage;
     while(1) {
 	    // use _CP0_SET_COUNT(0) and _CP0_GET_COUNT() to test the PIC timing
 		// remember the core timer runs at half the CPU speed
@@ -87,7 +144,11 @@ int main() {
         _CP0_SET_COUNT(0);               //reset core timer
         while(PORTBbits.RB7 == 1){        // wait if button pressed
         LATBCLR = 0x100;        // clear the led while the button is pressed
-        }                       
+        }
+        setVoltage('A',sinWave[i]);
+        setVoltage('B',triWave[i]);
+        i++;
+        if(i>=199){i=0;}
     }
     
     
