@@ -57,8 +57,10 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
         mCamera = Camera.open();
         Camera.Parameters parameters = mCamera.getParameters();
         parameters.setPreviewSize(640, 480);
-        parameters.setColorEffect(Camera.Parameters.EFFECT_MONO); // black and white
+        parameters.setColorEffect(Camera.Parameters.EFFECT_NONE); //color mode // black and white
         parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_INFINITY); // no autofocusing
+        parameters.setAutoWhiteBalanceLock(true);//disable auto white balance
+        parameters.setAutoExposureLock(true);//disable auto exposure
         mCamera.setParameters(parameters);
         mCamera.setDisplayOrientation(90); // rotate to portrait mode
 
@@ -89,7 +91,7 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
         if (c != null) {
 
             int[] pixels = new int[bmp.getWidth()];
-            int startY = 15; // which row in the bitmap to analyse to read
+            int startY = 400; // which row in the bitmap to analyse to read
             // only look at one row in the image
             bmp.getPixels(pixels, 0, bmp.getWidth(), 0, startY, bmp.getWidth(), 1); // (array name, offset inside array, stride (size of row), start x, start y, num pixels to read per row, num rows to read)
 
@@ -122,7 +124,7 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
             }
 
             // draw a circle where you think the COM is
-            canvas.drawCircle(COM, startY, 5, paint1);
+            canvas.drawCircle(COM, startY, 6, paint1);
 
             // also write the value as text
             canvas.drawText("COM = " + COM, 10, 200, paint1);
