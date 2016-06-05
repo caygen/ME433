@@ -17,35 +17,137 @@
         android:layout_alignParentStart="true"
         android:id="@+id/linearLayout"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:weightSum="1">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="changed to sth else"
+            android:text="TECH CUP 2016"
             android:layout_below="@+id/linearLayout"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal" />
 
         <SeekBar
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/seek1"
+            android:id="@+id/seek0"
             android:layout_below="@+id/linearLayout"
             android:layout_alignParentStart="true"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_alignParentEnd="true"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_margin="10dp"
-            android:progress="20" />
+            android:progress="38"
+            android:thumbTint="@android:color/holo_red_dark"
+            android:progressTint="@android:color/holo_orange_light" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="initial value"
-            android:id="@+id/textView01"
+            android:id="@+id/textView00"
             android:layout_gravity="center_horizontal" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nothing yet"
+            android:id="@+id/cameraStatus"/>
+
+        <SurfaceView
+            android:id="@+id/surfaceview"
+            android:layout_width="fill_parent"
+            android:layout_height="230dp"
+            android:layout_gravity="center_vertical" />
+
+        <TextureView
+            android:id="@+id/textureview"
+            android:layout_width="1dp"
+            android:layout_height="1dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:id="@+id/textViewR"
+            android:layout_gravity="center_horizontal" />
+
+        <SeekBar
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekR"
+            android:progress="55"
+            android:progressTint="#460062"
+            android:thumbTint="@color/accent_material_light" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:id="@+id/textViewDeg"
+                android:layout_marginLeft="53dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:id="@+id/textViewPos"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekPWM"
+            android:progressTint="@android:color/holo_blue_bright"
+            android:thumbTint="@android:color/holo_green_dark" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1.49">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/textViewPWMout"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/textViewPWMin"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Flash"
+            android:id="@+id/flashBut"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal" />
+
 
     </LinearLayout>
 

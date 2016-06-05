@@ -15,7 +15,7 @@ android:orientation="vertical">
     android:text="Nothing yet"
     android:id="@+id/cameraStatus"/>
 
-<SurfaceView
+    <SurfaceView
     android:id="@+id/surfaceview"
     android:layout_width="640px"
     android:layout_height="480px" />
