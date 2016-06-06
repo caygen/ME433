@@ -28,9 +28,11 @@ import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ScrollView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.hoho.android.usbserial.driver.UsbSerialPort;
@@ -66,8 +68,12 @@ public class SerialConsoleActivity extends Activity {
     private TextView mTitleTextView;
     private TextView mDumpTextView;
     private ScrollView mScrollView;
-    private CheckBox chkDTR;
-    private CheckBox chkRTS;
+//    private CheckBox chkDTR;
+//    private CheckBox chkRTS;
+
+    private TextView myTextViewPWMout;
+    private TextView myTextViewPWMin;
+    private SeekBar myControlPWM;
 
     private final ExecutorService mExecutor = Executors.newSingleThreadExecutor();
 
@@ -96,29 +102,38 @@ public class SerialConsoleActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.serial_console);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mTitleTextView = (TextView) findViewById(R.id.demoTitle);
         mDumpTextView = (TextView) findViewById(R.id.consoleText);
         mScrollView = (ScrollView) findViewById(R.id.demoScroller);
-        chkDTR = (CheckBox) findViewById(R.id.checkBoxDTR);
-        chkRTS = (CheckBox) findViewById(R.id.checkBoxRTS);
 
-        chkDTR.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                try {
-                    sPort.setDTR(isChecked);
-                }catch (IOException x){}
-            }
-        });
+//        chkDTR = (CheckBox) findViewById(R.id.checkBoxDTR);
+//        chkRTS = (CheckBox) findViewById(R.id.checkBoxRTS);
 
-        chkRTS.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                try {
-                    sPort.setRTS(isChecked);
-                }catch (IOException x){}
-            }
-        });
+//        chkDTR.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                try {
+//                    sPort.setDTR(isChecked);
+//                }catch (IOException x){}
+//            }
+//        });
+
+//        chkRTS.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                try {
+//                    sPort.setRTS(isChecked);
+//                }catch (IOException x){}
+//            }
+//        });
+
+        myControlPWM = (SeekBar) findViewById(R.id.seekPWM);
+        myTextViewPWMout = (TextView) findViewById(R.id.textViewPWMout);
+        myTextViewPWMout.setText("PWM sent");
+        myTextViewPWMin = (TextView) findViewById(R.id.textViewPWMin);
+        myTextViewPWMin.setText("PWM recvd");
+        setMyControlListenerPWM();
 
     }
 
@@ -170,6 +185,13 @@ public class SerialConsoleActivity extends Activity {
                 showStatus(mDumpTextView, "RI  - Ring Indicator", sPort.getRI());
                 showStatus(mDumpTextView, "RTS - Request To Send", sPort.getRTS());
 
+                int i = myControlPWM.getProgress();
+                String sendString = String.valueOf(i) + '\n';
+                try {
+                    sPort.write(sendString.getBytes(),10); // 10 is the timeout
+                }
+                catch (IOException e) {}
+
             } catch (IOException e) {
                 Log.e(TAG, "Error setting up device: " + e.getMessage(), e);
                 mTitleTextView.setText("Error opening device: " + e.getMessage());
@@ -210,8 +232,16 @@ public class SerialConsoleActivity extends Activity {
     private void updateReceivedData(byte[] data) {
         final String message = "Read " + data.length + " bytes: \n"
                 + HexDump.dumpHexString(data) + "\n\n";
-        mDumpTextView.append(message);
-        mScrollView.smoothScrollTo(0, mDumpTextView.getBottom());
+//        mDumpTextView.append(message);
+//        mScrollView.smoothScrollTo(0, mDumpTextView.getBottom());
+        int i = myControlPWM.getProgress();
+        String sendString = String.valueOf(i) + "\n";
+        try {
+            sPort.write(sendString.getBytes(),10); // 10 is the timeout
+            myTextViewPWMin.setText("PWM recvd: " + message);
+        }
+        catch (IOException e) {}
+
     }
 
     /**
@@ -225,6 +255,23 @@ public class SerialConsoleActivity extends Activity {
         final Intent intent = new Intent(context, SerialConsoleActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NO_HISTORY);
         context.startActivity(intent);
+    }
+    private void setMyControlListenerPWM() {
+        myControlPWM.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progressChanged = 50;
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progressChanged = progress;
+                myTextViewPWMout.setText("PWM set: "+progress);
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
 }

@@ -18,18 +18,6 @@
         android:layout_height="1dip"
         android:background="#eeeeee" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/textBtnDTR"
-        android:id="@+id/checkBoxDTR" />
-
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/textBtnRTS"
-        android:id="@+id/checkBoxRTS" />
 
     <View
         android:id="@+id/separator2"
@@ -51,4 +39,30 @@
             android:layout_height="wrap_content"
             android:typeface="monospace" />
     </ScrollView>
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekPWM"
+        android:layout_gravity="center_horizontal"
+        android:max="100"
+        android:progress="50"
+        android:indeterminate="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/textViewPWMout" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/textViewPWMin"
+        android:layout_row="0"
+        android:layout_column="3" />
+
 </LinearLayout>

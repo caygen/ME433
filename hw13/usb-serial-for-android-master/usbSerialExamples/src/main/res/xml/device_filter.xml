@@ -20,4 +20,7 @@
     
     <!-- 0x1a86 / 0x7523: Qinheng CH340 -->
     <usb-device vendor-id="6790" product-id="29987" />
+
+    <!-- 0x04D8 / 0x000A: PIC32 Microchip CDC Example -->
+    <usb-device vendor-id="1240" product-id="10" />
 </resources>
