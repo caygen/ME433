@@ -494,7 +494,7 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
             int degrees = (int) angle;
             int pos = (COM2 + COM1)/2-320;
             myTextView2.setText("Angle: " + degrees + "º");
-            myTextView3.setText("Average Pos: " + pos);
+            myTextView3.setText("AvPos: " + pos);
 
             // draw a circle where you think the COM is
             canvas.drawCircle(COM1, startY1, 6, paint1);
