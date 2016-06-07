@@ -183,7 +183,7 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
         //--//
         myControlR = (SeekBar) findViewById(R.id.seekR);
         myTextView1 = (TextView) findViewById(R.id.textViewR);
-        myTextView1.setText("R: "+myControlR.getProgress());
+        myTextView1.setText("Red Treshold: "+myControlR.getProgress());
         setMyControlListener1();
 
         paint1.setColor(0xffff0000); // red
@@ -192,7 +192,7 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
 
         myControl = (SeekBar) findViewById(R.id.seek0);
         myTextView = (TextView) findViewById(R.id.textView00);
-        myTextView.setText("Gen Tresh: 38");
+        myTextView.setText("General Treshold: 38");
         setMyControlListener();
 
         myTextView2 = (TextView) findViewById(R.id.textViewDeg);
