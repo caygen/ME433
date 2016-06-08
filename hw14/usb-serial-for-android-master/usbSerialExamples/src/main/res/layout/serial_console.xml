@@ -13,7 +13,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_gravity="center_horizontal"
-        android:textColor="@android:color/holo_orange_light" />
+        android:textColor="@android:color/holo_green_dark" />
 
     <View
         android:id="@+id/separator"
@@ -83,7 +83,8 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Small Text"
         android:id="@+id/textView00"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:textColor="@android:color/holo_red_dark" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -114,7 +115,8 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Small Text"
         android:id="@+id/textViewR"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:textColor="@android:color/holo_red_dark" />
 
     <SeekBar
         android:layout_width="match_parent"
@@ -156,8 +158,9 @@
                 android:id="@+id/textViewDeg"
                 android:layout_row="0"
                 android:layout_column="0"
-                android:textColor="@android:color/holo_orange_light"
-                android:layout_gravity="left" />
+                android:textColor="#51028a"
+                android:layout_gravity="left"
+                android:textStyle="bold" />
 
             <Button
                 style="?android:attr/buttonStyleSmall"
@@ -204,14 +207,15 @@
                 android:id="@+id/textViewPos"
                 android:layout_row="0"
                 android:layout_column="2"
-                android:textColor="@android:color/holo_orange_light"
-                android:layout_gravity="right" />
+                android:textColor="#51028a"
+                android:layout_gravity="right"
+                android:textStyle="bold" />
 
             <Button
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ON/OFF"
+                android:text="Start"
                 android:id="@+id/powerBut"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"

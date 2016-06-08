@@ -267,7 +267,8 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
         parameters.setColorEffect(Camera.Parameters.EFFECT_NONE); //color mode // not black and white
         parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_INFINITY); // no autofocusing
         parameters.setAutoWhiteBalanceLock(true);//disable auto white balance
-        parameters.setAutoExposureLock(true);//disable auto exposure
+        parameters.setAutoExposureLock(false);//disable auto exposure
+//        parameters.setExposureCompensation(1);
         mCamera.setParameters(parameters);
         mCamera.setDisplayOrientation(90); // rotate to portrait mode
 
@@ -578,8 +579,10 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
 
     private void turnOnPower(){
         isPowerOn = true;
+        pwrSwitch.setText("Stop");
     }
     private void turnOffPower(){
         isPowerOn = false;
+        pwrSwitch.setText("Start");
     }
 }
